@@ -1,0 +1,67 @@
+ion-card-header {
+  border-bottom: 1px solid #0000001a;
+  color: black;
+  font-weight: bold;
+  padding: 15px;
+  text-align: center;
+}
+
+ion-card-content {
+  padding: 15px 5px 15px 5px;
+  .payment-method {
+    margin-bottom: 25px;
+  }
+  ion-row {
+    ion-col {
+      padding: 0px 5px;
+      .input-with-icon {
+        display: flex;
+
+        #card-expiry,
+        #card-cvc {
+          padding-left: 35px;
+        }
+        ion-icon {
+          align-self: center;
+          position: absolute;
+          left: 12px;
+          color: #b6b6b6;
+        }
+      }
+    }
+  }
+  .special-input {
+    width: 100%;
+    height: 40px;
+    padding: 11px 12px;
+    background: #ffffff;
+    border: 1px solid #0000001a;
+    border-radius: 4px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: #000000;
+    outline: none;
+    &::placeholder {
+      /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: #b6b6b6;
+      opacity: 1; /* Firefox */
+    }
+    .card-expiry & {
+      padding-left: 40px;
+    }
+  }
+  .error-message {
+    font-size: 12px;
+    color: #fa755a;
+    margin-top: 2px;
+    min-height: 16px;
+  }
+}
+.ngx-datatable.material {
+  box-shadow: none;
+}
+::ng-deep .column-design {
+  text-align: center !important;
+  color: #000000 !important ;
+  font-weight: 600 !important;
+}

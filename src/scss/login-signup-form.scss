@@ -1,0 +1,52 @@
+.login-signup {
+  ion-grid.container {
+    --ion-grid-padding: 20px;
+    .heading {
+      font-family: "PoppinsSemiBold";
+      margin-top: 5px;
+      color: var(--default-text-color);
+    }
+    .detail {
+      font-size: 14px;
+      color: var(--default-text-color);
+      margin-top: 10px;
+    }
+    form {
+      ion-col.input {
+        margin-bottom: 5px;
+      }
+      ion-col.button {
+        margin-top: 10px;
+      }
+    }
+    .have_account,
+    .forgot_password {
+      color: #242e4f80;
+      font-size: 14px;
+      text-align: center;
+      margin: 20px 0px;
+      span {
+        font-weight: 600;
+        color: var(--default-text-color);
+      }
+    }
+    .google,
+    .facebook {
+      border-radius: 6px;
+      background: #ffffff;
+      font-weight: 600;
+      img {
+        width: 20px;
+        margin-right: 10px;
+      }
+    }
+    .google {
+      border: 1px solid #ff3d00;
+      color: #ff3d00;
+    }
+    .facebook {
+      border: 1px solid #1877f2;
+      color: #1877f2;
+    }
+  }
+}

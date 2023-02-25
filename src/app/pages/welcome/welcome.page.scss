@@ -1,0 +1,27 @@
+:host {
+    .background-image {
+        // --background: url('../../../assets/img/login-background.jpg') no-repeat 100% 100%;
+        background-color: #FFFFFF;
+    }
+}
+
+p {
+    color: black;
+}
+
+ion-card {
+    color: black;
+    background-color: white;
+    box-shadow:none !important
+}
+
+.onboarding-image {
+    height: 175px;   
+    width: 175px;
+}
+
+.to_bottom{
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+}

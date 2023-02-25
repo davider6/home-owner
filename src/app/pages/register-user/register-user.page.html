@@ -1,0 +1,52 @@
+<ion-content>
+    <ion-header>
+        <ion-toolbar color="dark">
+            <ion-buttons slot="start">
+                <ion-back-button defaultHref="/"></ion-back-button>
+            </ion-buttons>
+            <ion-title>Sign Up</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <form #form="ngForm" (ngSubmit)="register(form)">
+        <ion-grid>
+            <ion-row class="ion-justify-content-center">
+                <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+                    <div class="ion-text-center">
+                        <h3>Sign Up 2</h3>
+                    </div>
+                    <div class="ion-padding">
+                        <ion-item>
+                            <ion-input name="email" type="email" placeholder="E-mail" ngModel required></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-input name="name" type="name" placeholder="Full Name" ngModel required></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="stacked">Address</ion-label>
+                            <ion-input
+                            class="ion-text-right"
+                            ngModel
+                            required
+                            placeholder="Address"
+                            inputmode="text"
+                            type="text"
+                            ></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-input name="zip" type="zip" placeholder="Zip Code" ngModel required></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-input name="password" type="password" placeholder="Password" ngModel required></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-input name="confirm" type="password" placeholder="Confirm Password" ngModel required></ion-input>
+                        </ion-item>
+                    </div>
+                    <div class="ion-padding">
+                        <ion-button size="large" type="submit" [disabled]="form.invalid" expand="block">Sign Up</ion-button>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+</ion-content>

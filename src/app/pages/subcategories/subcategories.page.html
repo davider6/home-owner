@@ -1,0 +1,24 @@
+<ion-header *ngIf="isReady">
+    <ion-toolbar color="dark">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{selCategory.name}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="isReady">
+    <img style="border-radius: 10px 10px 0px 0px;" src="{{selCategory.categoryImage}}">
+    <p style="margin-left:15px;" class="ion-text-center">{{selCategory.description}}</p>
+    <ion-list>
+        <ion-item class="ion-text-wrap" *ngFor="let cat of catOccList" (click)="goList(cat.occupationId)">
+            <ion-avatar slot="end">
+                <img src="{{cat.occImage}}">
+            </ion-avatar>
+            <ion-label>
+                <h2><b>{{cat.occName}}</b></h2>
+                <h3 class="ion-text-wrap"><span style="color: grey">{{cat.occDescription}}</span></h3>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>

@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      New Work Order
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <form #form="ngForm" (ngSubmit)="createNewOrder(form)">
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <ion-list-header>
+        <ion-label>Occupation:</ion-label>
+      </ion-list-header>
+      <ion-select
+        ngModel
+        name="occupationsId"
+        placeholder="Select One"
+        style="width: 100%;"
+      >
+        <ion-select-option
+          *ngFor="let occupation of occupationsList"
+          value="{{ occupation.id }}"
+          >{{ occupation.name }}</ion-select-option
+        >
+      </ion-select>
+      <br />
+      <ion-item>
+        <ion-label position="floating">
+          <ion-icon name="person"></ion-icon> My Name</ion-label
+        >
+        <ion-input
+          ngModel
+          name="fullName"
+          type="text"
+          inputmode="latin-name"
+          maxlength="60"
+        >
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">
+          <ion-icon name="pin"></ion-icon>Address</ion-label
+        >
+        <ion-input
+          ngModel
+          name="address"
+          type="text"
+          inputmode="latin-name"
+          maxlength="60"
+        >
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">What i need ?</ion-label>
+        <ion-textarea
+          ngModel
+          name="description"
+          type="text"
+          inputmode="latin-name"
+          rows="4"
+        ></ion-textarea>
+      </ion-item>
+      <br />
+      <ion-item>
+        <ion-label position="floating">When:</ion-label>
+        <ion-datetime
+          ngModel
+          name="proposedDate"
+          display-format="MM DD YYYY"
+        ></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating"> Duration:</ion-label>
+        <ion-input
+          ngModel
+          name="estimatedDate"
+          type="number"
+          inputmode="latin-name"
+        >
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox
+          color="primary"
+          [(ngModel)]="needVehicle"
+          [ngModelOptions]="{standalone: true}"
+          slot="start"
+        ></ion-checkbox>
+        <ion-label>Vehicle is needed</ion-label>
+      </ion-item>
+      <app-image-slider
+        [upload]="true"
+        [closed]="false"
+        [temp]="false"
+        [loadTemp]="true"
+      ></app-image-slider>
+    </ion-list>
+
+    <div class="ion-padding">
+      <ion-button
+        expand="block"
+        type="submit"
+        color="dark"
+        [routerDirection]="'root'"
+      >
+        <ion-icon slot="start" name="save"></ion-icon>Place Work Order
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

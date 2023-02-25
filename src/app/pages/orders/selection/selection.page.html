@@ -1,0 +1,186 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Your Project Information</ion-title>
+    <ion-buttons slot="end">
+      <ion-icon name="home" size="large" (click)="goHome()"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-no-data *ngIf="!isLoaded" [loaded]="isLoaded"></app-no-data>
+
+  <div *ngIf="isLoaded">
+    <ion-card>
+      <ion-card-header
+        (click)="openCategoryAct()"
+        [ngClass]="{ 'border-bottom': openCategory}"
+      >
+        <ion-card-subtitle color="{{openCategory ? 'primary' : 'medium'}}">
+          {{selCategory ? 'Selected category - '+selCategory.name : 'Select one
+          project category'}}
+        </ion-card-subtitle>
+        <ion-icon
+          color="{{openCategory ? 'primary' : 'medium'}}"
+          name="{{openCategory ? 'arrow-up' : 'arrow-down'}}"
+        ></ion-icon>
+      </ion-card-header>
+      <ion-card-content *ngIf="openCategory">
+        <ion-item
+          lines="full"
+          *ngFor="let category of categoriesMap"
+          (click)="onSelectCategory(category)"
+        >
+          <ion-avatar slot="start">
+            <img src="{{ category.categoryImage }}" />
+          </ion-avatar>
+          <ion-label>{{ category.name }}</ion-label>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="occupation">
+      <ion-card-header
+        (click)="openOccupationAct()"
+        [ngClass]="{ 'border-bottom': openOccupation}"
+      >
+        <ion-card-subtitle color="{{openOccupation ? 'primary' : 'medium'}}">
+          {{selSubCategories.length ? 'Selected sub-categories -
+          '+selSubCategories.length : 'Select one or more sub-categories'}}
+        </ion-card-subtitle>
+        <ion-icon
+          color="{{openOccupation ? 'primary' : 'medium'}}"
+          name="{{openOccupation ? 'arrow-up' : 'arrow-down'}}"
+        >
+        </ion-icon>
+      </ion-card-header>
+      <ion-card-content *ngIf="openOccupation">
+        <div class="item" *ngFor="let occupation of categoryOccupations">
+          <div class="content">
+            <div class="title" [ngClass]="{ checked: occupation.isChecked }">
+              {{ occupation.occName }}
+            </div>
+            <div class="subtitle">{{ occupation.occDescription }}</div>
+          </div>
+          <ion-checkbox
+            slot="start"
+            [(ngModel)]="occupation.isChecked"
+            (click)="onSelectSub($event, occupation)"
+            mode="md"
+          >
+          </ion-checkbox>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="project-details">
+      <ion-card-header
+        (click)="openOrderAct()"
+        [ngClass]="{ 'border-bottom': openOrder}"
+      >
+        <ion-card-subtitle color="{{openOrder ? 'primary' : 'medium'}}">
+          Please enter project details
+        </ion-card-subtitle>
+        <ion-icon
+          color="{{openOrder ? 'primary' : 'medium'}}"
+          name="{{openOrder ? 'arrow-up' : 'arrow-down'}}"
+        >
+        </ion-icon>
+      </ion-card-header>
+      <ion-card-content *ngIf="openOrder">
+        <ion-item lines="full">
+          <ion-label position="stacked">Project Date</ion-label>
+          <ion-datetime
+            [(ngModel)]="selDate"
+            displayFormat="D MMM YYYY H:mm"
+            [min]="minDate"
+            [max]="maxDate"
+          ></ion-datetime>
+        </ion-item>
+
+        <ion-item lines="full">
+          <ion-label position="stacked">Project Resources Needed</ion-label>
+          <ion-input
+            class="ion-text-left"
+            [(ngModel)]="selResources"
+            name="resources"
+            placeholder="Number of Resources"
+            inputmode="number"
+            type="number"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item lines="full">
+          <ion-label position="stacked">Project Duration (hrs)</ion-label>
+          <ion-select
+            interface="popover"
+            [(ngModel)]="selDuration"
+            multiple="false"
+          >
+            <ion-select-option [value]="4">4</ion-select-option>
+            <ion-select-option selected="true" [value]="8">8</ion-select-option>
+          </ion-select>
+          <!-- <ion-input class="ion-text-left" [(ngModel)]="selDuration" name="duration" placeholder="Duration" inputmode="number" type="number"></ion-input> -->
+        </ion-item>
+
+        <ion-item lines="full">
+          <ion-label position="stacked">Project Address</ion-label>
+          <ion-input
+            class="ion-text-left"
+            [(ngModel)]="selAddress"
+            placeholder="Address"
+            inputmode="number"
+            type="text"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item lines="full">
+          <ion-label position="stacked">Zip Code</ion-label>
+          <ion-input
+            class="ion-text-left"
+            [(ngModel)]="selZipCode"
+            placeholder="Zip Code"
+            inputmode="number"
+            type="tel"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item lines="full">
+          <ion-label>I'll Provide Transportation</ion-label>
+          <ion-toggle
+            name="vehicleRequired"
+            [(ngModel)]="selVehicle"
+            mode="md"
+          ></ion-toggle>
+        </ion-item>
+
+        <ion-item lines="full">
+          <ion-label position="stacked">Project Description</ion-label>
+          <ion-textarea
+            class="ion-text-left"
+            name="description"
+            [(ngModel)]="selDescription"
+            row="6"
+            placeholder="Project Description"
+          ></ion-textarea>
+        </ion-item>
+
+        <app-image-slider
+          [upload]="true"
+          [closed]="false"
+          [temp]="true"
+          [loadTemp]="false"
+        ></app-image-slider>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-fab vertical="bottom" class="fabButton" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="next()">
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+</ion-content>

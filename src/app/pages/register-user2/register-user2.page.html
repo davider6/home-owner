@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Sign Up</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="login-signup">
+  <app-banner></app-banner>
+  <ion-grid class="container">
+    <ion-row>
+      <ion-col>
+        <h2 *ngIf="registerUserType==='new'" class="heading">Registration</h2>
+        <h2 *ngIf="registerUserType==='social-new'" class="heading">
+          Confirm your information
+        </h2>
+        <p class="detail">Welcome to Xjobs</p>
+      </ion-col>
+    </ion-row>
+    <form (ngSubmit)="saveUser()" [formGroup]="userForm">
+      <ion-row>
+        <ion-col class="input" size="12">
+          <ion-input
+            type="email"
+            formControlName="email"
+            placeholder="E-mail"
+          ></ion-input>
+        </ion-col>
+        <ion-col class="input" size="12">
+          <ion-input
+            type="name"
+            formControlName="name"
+            placeholder="Full Name"
+          ></ion-input>
+        </ion-col>
+        <ion-col class="input" size="12">
+          <ion-input
+            placeholder="Address"
+            inputmode="text"
+            type="text"
+            formControlName="address"
+          ></ion-input>
+          <ion-icon
+            class="select-address"
+            name="map"
+            (click)="selectAddress()"
+          ></ion-icon>
+        </ion-col>
+        <ion-col class="input" size="12">
+          <ion-input
+            placeholder="Zip Code"
+            type="text"
+            formControlName="zip"
+          ></ion-input>
+        </ion-col>
+        <ion-col class="input" size="12" *ngIf="needsPassword">
+          <ion-input
+            placeholder="Password"
+            type="password"
+            formControlName="password"
+          ></ion-input>
+        </ion-col>
+        <ion-col class="input" size="12" *ngIf="needsPassword">
+          <ion-input
+            type="password"
+            placeholder="Confirm Password"
+            formControlName="password2"
+          ></ion-input>
+        </ion-col>
+        <ion-col class="button" size="12">
+          <ion-button
+            type="submit"
+            expand="block"
+            mode="ios"
+            [disabled]="!userForm.valid || loading"
+            >Sign Up</ion-button
+          >
+        </ion-col>
+
+        <!--  Manejo de Errores  -->
+        <ion-col size="12">
+          <ion-label *ngIf="passwordValid" color="danger" class="ion-text-wrap">
+            Las contraseñas deben de coincidir y tener al menos 5 caracteres
+          </ion-label>
+
+          <ion-label *ngIf="userInvalid" color="danger" class="ion-text-wrap">
+            El correo ya existe
+          </ion-label>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+</ion-content>

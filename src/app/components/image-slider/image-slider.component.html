@@ -1,0 +1,32 @@
+<div *ngIf="loading && images.length > 0">
+  <ion-item><ion-spinner name="bubbles"></ion-spinner></ion-item>
+</div>
+<div *ngIf="!loading">
+  <ion-item *ngIf="images.length > 0">
+    <ion-slides #slider pager="true" [options]="sliderOpts">
+      <ion-slide *ngFor="let image of images; index as pos">
+        <ion-img
+          alt="{{ pos }}"
+          src="{{ image.path }}"
+          (click)="openImage(image)"
+        ></ion-img>
+      </ion-slide>
+    </ion-slides>
+  </ion-item>
+  <div *ngIf="upload">
+    <div class="upload-img">
+      <p (click)="selectMedia()">
+        <ion-icon name="cloud-upload"></ion-icon> Upload Project Pics
+      </p>
+    </div>
+    <!-- <ion-button color="success" (click)="selectMedia()">
+      <ion-icon slot="start" name="document"></ion-icon>
+      Upload Project Pics
+    </ion-button> -->
+
+    <ion-button *ngIf="images.length > 0" color="warning" (click)="openModal()">
+      <ion-icon slot="start" name="trash"></ion-icon>
+      Delete Project Pics
+    </ion-button>
+  </div>
+</div>

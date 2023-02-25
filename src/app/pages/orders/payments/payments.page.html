@@ -1,0 +1,97 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <!-- <ion-buttons slot="start">
+      <ion-icon name="arrow-back" size="large" (click)="cancel()"></ion-icon>
+    </ion-buttons> -->
+    <ion-title>Select Payment Method</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-row class="payment-method">
+        <ion-col> <img src="/assets/img/payment-methods.png" /> </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <input
+            type="text"
+            placeholder="Your Name"
+            [(ngModel)]="name"
+            class="special-input"
+          />
+          <div class="error-message">{{errorMessage.name}}</div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <div id="card-number" class="special-input"></div>
+          <div class="error-message">{{errorMessage.cardNumber}}</div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="ion-padding-end">
+          <div class="input-with-icon">
+            <div id="card-expiry" class="special-input"></div>
+            <ion-icon name="calendar"></ion-icon>
+          </div>
+          <div class="error-message">{{errorMessage.cardExpiry}}</div>
+        </ion-col>
+        <ion-col>
+          <div class="input-with-icon">
+            <div id="card-cvc" class="special-input"></div>
+            <ion-icon name="lock"></ion-icon>
+          </div>
+          <div class="error-message">{{errorMessage.cardCvc}}</div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-button
+            color="primary"
+            expand="block"
+            [disabled]="invalid() || disabled"
+            (click)="onSubmit()"
+          >
+            Continue
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header> Payment Detail </ion-card-header>
+
+    <ngx-datatable
+      class="material"
+      [rowClass]="onGetRowClass"
+      [rows]="selectedWorkersAmount"
+      [columnMode]="'force'"
+      [headerHeight]="50"
+      rowHeight="auto"
+      [messages]="{emptyMessage: 'loading records Error.'} "
+    >
+      <ngx-datatable-column
+        prop="workerName"
+        name="Selected Worker"
+        [sortable]="false"
+        [headerClass]="'column-design'"
+      ></ngx-datatable-column>
+      <ngx-datatable-column
+        prop="workerAmount"
+        name="Amount Due per Worker"
+        [sortable]="false"
+        [headerClass]="'column-design'"
+      ></ngx-datatable-column>
+    </ngx-datatable>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,200 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h1 class="ion-text-center" style="color: #253659">Welcome to xJobs</h1>
+  <p
+    class="ion-text-center"
+    style="
+      font-size: 17px !important;
+      margin-top: 5px;
+      margin-bottom: 20px;
+      color: #d95a2b;
+    "
+  >
+    People looking for solutions
+  </p>
+
+  <ul class="hex-grid__list">
+    <li class="hex-grid__item">
+      <div
+        class="hex-grid__content"
+        style="
+          background-image: url('../../../assets/home/painting.jpg');
+          background-size: auto 100%;
+          background-position: center;
+        "
+      >
+        &nbsp;
+      </div>
+    </li>
+    <li class="hex-grid__item">
+      <div
+        class="hex-grid__content"
+        style="
+          background-image: url('../../../assets/home/landscaping.jpg');
+          background-size: auto 100%;
+          background-position: center;
+        "
+      >
+        &nbsp;
+      </div>
+    </li>
+    <li class="hex-grid__item">
+      <div
+        class="hex-grid__content"
+        style="
+          background-image: url('../../../assets/home/carpentry.jpg');
+          background-size: auto 100%;
+          background-position: center;
+        "
+      >
+        &nbsp;
+      </div>
+    </li>
+    <li class="hex-grid__item">
+      <div
+        class="hex-grid__content"
+        style="
+          background-image: url('../../../assets/home/cleaning.jpg');
+          background-size: auto 100%;
+          background-position: center;
+        "
+      >
+        &nbsp;
+      </div>
+    </li>
+    <li class="hex-grid__item">
+      <div
+        class="hex-grid__content"
+        style="
+          background-image: url('../../../assets/home/xjobs.png');
+          background-size: auto 100%;
+          background-position: center;
+        "
+      >
+        &nbsp;
+      </div>
+    </li>
+    <li class="hex-grid__item">
+      <div
+        class="hex-grid__content"
+        style="
+          background-image: url('../../../assets/home/electricity.jpg');
+          background-size: auto 100%;
+          background-position: center;
+        "
+      >
+        &nbsp;
+      </div>
+    </li>
+    <li class="hex-grid__item" style="visibility: hidden">
+      <div class="hex-grid__content">&nbsp;</div>
+    </li>
+    <li class="hex-grid__item">
+      <div
+        class="hex-grid__content"
+        style="
+          background: rgb(57, 128, 114);
+          background: radial-gradient(
+            circle,
+            rgba(57, 128, 114, 1) 0%,
+            rgba(57, 128, 114, 1) 50%,
+            rgba(255, 255, 255, 1) 100%
+          );
+        "
+      >
+        <span
+          style="color: #ffffff !important; font-weight: bolder"
+          (click)="ordersByClient()"
+          >My orders</span
+        >
+      </div>
+    </li>
+    <li class="hex-grid__item">
+      <div
+        class="hex-grid__content"
+        style="
+          background: rgb(217, 90, 43);
+          background: radial-gradient(
+            circle,
+            rgba(217, 90, 43, 1) 0%,
+            rgba(217, 90, 43, 1) 50%,
+            rgba(255, 255, 255, 1) 100%
+          );
+        "
+      >
+        <span
+          style="color: #ffffff !important; font-weight: bolder"
+          (click)="startOrder()"
+          >Start an order</span
+        >
+      </div>
+    </li>
+  </ul>
+</ion-content>
+
+<ion-menu type="overlay" contentId="main" menuId="main-menu">
+  <ion-content class="main-menu-padding">
+    <div class="ion-padding">
+      <ion-button (click)="closeMenu()" class="back-button" fill="outline">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+
+      <div class="profile ion-margin-top" *ngIf="client">
+        <ion-avatar>
+          <img src="../../../assets/workerLogo.png" />
+        </ion-avatar>
+        <div class="description">
+          <div>
+            <ion-text class="username">{{ client.fullName }}</ion-text>
+          </div>
+          <div>
+            <ion-text class="email">{{ client.email }}</ion-text>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="client">
+        <ion-row class="ion-margin-top ion-justify-content-between">
+          <ion-text color="medium">Address: </ion-text>
+          <ion-text color="primary">{{ client.address }}</ion-text>
+        </ion-row>
+        <ion-row class="ion-margin-top ion-justify-content-between">
+          <ion-text color="medium">Zip: </ion-text>
+          <ion-text color="primary">{{ client.zipCode }}</ion-text>
+        </ion-row>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <ion-list>
+      <div class="ion-padding">
+        <ion-button (click)="signOut()" expand="block" class="ion-text-start">
+          <ion-icon slot="start" name="log-in"></ion-icon>Logout
+        </ion-button>
+        <!-- <ion-item lines="none" detail="false" (click)="signOut()">
+          <ion-icon slot="start" name="log-in"></ion-icon>
+          <button ion-button full>Logout</button>
+          <ion-label> Logout </ion-label>
+        </ion-item> -->
+      </div>
+    </ion-list>
+
+    <!-- <ion-grid fixed>
+      <ion-row class="ion-text-center">
+        <ion-col size="12">
+          <ion-button (click)="signOut()" expand="block" color="danger">
+            Logout
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid> -->
+  </ion-content>
+</ion-menu>

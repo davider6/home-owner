@@ -1,0 +1,261 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Order Detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="order-info">
+    <ion-card-header>
+      <ion-card-title
+        >Order # {{ orderDetails.orderId }}
+        <span class="status {{ orderDetails.assignedStatus }}"
+          >{{ orderDetails.assignedStatus.replace("_", " ") }}</span
+        ></ion-card-title
+      >
+    </ion-card-header>
+    <ion-card-content>
+      <div class="head">
+        <img src="{{orderDetails.occupationImage}}" />
+        <div class="content">
+          <div class="item">
+            <ion-icon name="person"></ion-icon>
+            <div class="label">Worker Name</div>
+            <div class="value">{{orderDetails.workerName}}</div>
+          </div>
+          <div class="item">
+            <ion-icon name="list"></ion-icon>
+            <div class="label">Category</div>
+            <div class="value">{{orderDetails.occupationName}}</div>
+          </div>
+          <div class="item">
+            <ion-icon name="map"></ion-icon>
+            <div class="label">Address</div>
+            <div class="value">{{orderDetails.address}}</div>
+          </div>
+          <div class="item">
+            <ion-icon name="today"></ion-icon>
+            <div class="label">Order Date</div>
+            <div class="value">
+              {{orderDetails.orderProposedDate | date:'medium'}}
+            </div>
+          </div>
+          <div class="item">
+            <ion-icon name="calendar"></ion-icon>
+            <div class="label">End Date</div>
+            <div class="value">{{orderDetails.finishTime | date:'medium'}}</div>
+          </div>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <!-- Tab selector -->
+    <ion-segment (ionChange)="segmentChanged()" [(ngModel)]="segment" mode="md">
+      <ion-segment-button value="0">
+        <ion-label>Requested</ion-label>
+      </ion-segment-button>
+      <ion-segment-button
+        value="1"
+        *ngIf="orderDetails.assignedStatus =='FINISHED' || orderDetails.assignedStatus =='CLOSED'"
+      >
+        <ion-label>Result</ion-label>
+      </ion-segment-button>
+      <ion-segment-button
+        value="1"
+        *ngIf="orderDetails.assignedStatus =='CHANGE_DATE'"
+      >
+        <ion-label>Date Change Request</ion-label>
+      </ion-segment-button>
+      <ion-segment-button
+        value="2"
+        *ngIf="orderDetails.assignedStatus =='FINISHED'"
+      >
+        <ion-label>Close Order</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <ion-slides #slides (ionSlideDidChange)="slideChanged()" scrollbar="true">
+      <!-- First Tab -->
+      <ion-slide>
+        <ion-card-content class="description">
+          <ion-text>
+            <p>{{ orderDetails.description }}</p>
+          </ion-text>
+
+          <img
+            *ngFor="let homeOwnerPic of homeOwnerPics"
+            tappable
+            src="{{ homeOwnerPic }}"
+            (click)="imagePreview(homeOwnerPic)"
+          />
+        </ion-card-content>
+      </ion-slide>
+
+      <!-- Second Tab -->
+      <ion-slide
+        *ngIf="orderDetails.assignedStatus =='FINISHED'  || orderDetails.assignedStatus =='CLOSED'"
+      >
+        <ion-card-content class="worker-detail">
+          <ion-avatar>
+            <img [src]="validateImageL(orderDetails.profileImage)" />
+          </ion-avatar>
+          <ion-text>
+            <h5>{{ orderDetails.workerName }}</h5>
+            <p>{{ orderDetails.workerComments }}</p>
+            <h6>
+              {{ orderDetails.finishTime | date:'dd/MM/yyyy' }} - {{
+              orderDetails.durationInHours }} Hrs.
+            </h6>
+          </ion-text>
+
+          <img
+            *ngFor="let workerPic of workerPics"
+            tappable
+            src="{{ workerPic }}"
+            (click)="imagePreview(workerPic)"
+          />
+        </ion-card-content>
+      </ion-slide>
+
+      <!-- 3rd Tab -->
+      <ion-slide *ngIf="orderDetails.assignedStatus =='CHANGE_DATE'">
+        <ion-card-content class="change-date-tab">
+          <div class="head">
+            <img [src]="validateImageL(orderDetails.profileImage)" />
+            <div class="content">
+              <div class="item">
+                <ion-icon name="person"></ion-icon>
+                <div class="label">Worker Name</div>
+                <div class="value">{{orderDetails.workerName}}</div>
+              </div>
+              <div class="item">
+                <ion-icon name="cash"></ion-icon>
+                <div class="label">Hourly Rate</div>
+                <div class="value">{{orderDetails.hourlyRate}}</div>
+              </div>
+              <div class="item">
+                <ion-icon name="compass"></ion-icon>
+                <div class="label">Zip Code</div>
+                <div class="value">{{orderDetails.zipCode}}</div>
+              </div>
+              <div class="item">
+                <ion-icon name="star"></ion-icon>
+                <div class="label">Occupation Rate</div>
+                <div class="value">{{orderDetails.occupationRate}}</div>
+              </div>
+              <div class="item">
+                <ion-icon name="car"></ion-icon>
+                <div class="label">Transportation</div>
+                <div class="value">
+                  {{orderDetails.isPublic ? 'Yes' : 'No'}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <ion-row class="button-container">
+            <ion-col>
+              <ion-button
+                color="success"
+                expand="block"
+                mode="ios"
+                (click)="accepOrRejectDate('Y')"
+              >
+                <ion-icon name="thumbs-up"></ion-icon>
+                Accept
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button
+                color="danger"
+                expand="block"
+                mode="ios"
+                (click)="accepOrRejectDate('N')"
+              >
+                <ion-icon name="thumbs-down"></ion-icon>
+                Reject
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <div class="prpose-date">
+            <div class="title">Proposed date:</div>
+            <div class="value">
+              {{ orderDetails.orderProposedDate | date:'medium' }}
+            </div>
+          </div>
+          <div class="description">
+            <h2 class="title">Description of date change request:</h2>
+            <ion-textarea
+              [(ngModel)]="orderDetails.workerComments"
+              name="description"
+              type="text"
+              inputmode="latin-name"
+              autoGrow="true"
+              row="10"
+              disabled
+            ></ion-textarea>
+          </div>
+        </ion-card-content>
+      </ion-slide>
+
+      <!-- 4th tab -->
+      <ion-slide *ngIf="orderDetails.assignedStatus =='FINISHED'">
+        <ion-card-content class="close-order-tab">
+          <div class="rating">
+            <div class="title">Rate worker attention:</div>
+            <div class="value">
+              <img
+                src="{{icon1}}"
+                style="width: 20px; height: 20px"
+                (click)="onChangeRating(1)"
+              />
+              <img
+                src="{{icon2}}"
+                style="width: 20px; height: 20px"
+                (click)="onChangeRating(2)"
+              />
+              <img
+                src="{{icon3}}"
+                style="width: 20px; height: 20px"
+                (click)="onChangeRating(3)"
+              />
+              <img
+                src="{{icon4}}"
+                style="width: 20px; height: 20px"
+                (click)="onChangeRating(4)"
+              />
+              <img
+                src="{{icon5}}"
+                style="width: 20px; height: 20px"
+                (click)="onChangeRating(5)"
+              />
+            </div>
+          </div>
+          <div class="add-description">
+            <h2 class="title">Describe your experience:</h2>
+            <ion-textarea
+              [(ngModel)]="closeCommentary"
+              name="closeCommentary"
+              type="text"
+              inputmode="latin-name"
+              rows="10"
+            ></ion-textarea>
+          </div>
+
+          <ion-button
+            expand="block"
+            type="submit"
+            color="primary"
+            (click)="closeOrder()"
+            mode="ios"
+          >
+            <ion-icon slot="start" name="close-circle"></ion-icon>Close order
+          </ion-button>
+        </ion-card-content>
+      </ion-slide>
+    </ion-slides>
+  </ion-card>
+</ion-content>

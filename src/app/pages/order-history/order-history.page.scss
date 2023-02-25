@@ -1,0 +1,95 @@
+ion-content {
+  --overflow: hidden;
+}
+
+ion-slides {
+  max-height: calc(100vh - 120px);
+  overflow-y: scroll;
+  padding-bottom: 20px;
+  ion-slide {
+    display: block;
+  }
+}
+
+ion-card-header {
+  border-bottom: 1px dashed #0000001a;
+  padding: 15px;
+  text-align: left;
+  ion-card-title {
+    font-size: 16px;
+    font-family: "PoppinsMedium";
+  }
+  ion-icon {
+    position: absolute;
+    right: 7px;
+    top: 14px;
+    font-size: 21px;
+  }
+}
+ion-card-content {
+  padding: 15px;
+  .item {
+    display: flex;
+    justify-content: space-between;
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
+    .label {
+      font-size: 14px;
+      color: #898787;
+    }
+    .value {
+      font-size: 14px;
+      font-weight: 700;
+      color: #282289;
+    }
+    .status {
+      font-size: 14px;
+      padding: 5px;
+      width: 110px;
+      text-align: center;
+      border-radius: 6px;
+      position: absolute;
+      right: 15px;
+      top: 11px;
+      background: #8987871a;
+      color: #898787;
+      &.NEW {
+        background: var(--order-status-new-tint);
+        color: var(--order-status-new);
+      }
+      &.ACCEPTED {
+        background: var(--order-status-accepted-tint);
+        color: var(--order-status-accepted);
+      }
+      &.IN_PROGRESS {
+        background: var(--order-status-in-progress-tint);
+        color: var(--order-status-in-progress);
+      }
+      &.FINISHED {
+        background: var(--order-status-finished-tint);
+        color: var(--order-status-finished);
+      }
+      &.CLOSED {
+        background: var(--order-status-closed-tint);
+        color: var(--order-status-closed);
+      }
+      &.PUBLIC {
+        background: var(--order-status-public-tint);
+        color: var(--order-status-public);
+      }
+      &.CHANGE_DATE {
+        background: var(--order-status-change-date-tint);
+        color: var(--order-status-change-date);
+      }
+      &.REJECTED {
+        background: var(--order-status-rejected-tint);
+        color: var(--order-status-rejected);
+      }
+      &.EXPIRED {
+        background: var(--order-status-expired-tint);
+        color: var(--order-status-expired);
+      }
+    }
+  }
+}

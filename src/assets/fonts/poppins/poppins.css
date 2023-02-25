@@ -1,0 +1,89 @@
+@font-face {
+  font-family: "PoppinsBlack";
+  src: url("Poppins-Black.ttf");
+}
+
+@font-face {
+  font-family: "PoppinsBlackItalic";
+  src: url("Poppins-BlackItalic.ttf");
+}
+
+@font-face {
+  font-family: "PoppinsBold";
+  src: url("Poppins-Bold.ttf");
+}
+
+@font-face {
+  font-family: "PoppinsBoldItalic";
+  src: url("Poppins-BoldItalic.ttf");
+}
+
+@font-face {
+  font-family: "PoppinsExtraBold";
+  src: url("Poppins-ExtraBold.ttf");
+}
+
+@font-face {
+  font-family: "PoppinsExtraBoldItalic";
+  src: url("Poppins-ExtraBoldItalic.ttf");
+}
+
+@font-face {
+  font-family: "PoppinsExtraLight";
+  src: url("Poppins-ExtraLight.ttf");
+}
+
+@font-face {
+  font-family: "PoppinsExtraLightItalic";
+  src: url("Poppins-ExtraLightItalic.ttf");
+}
+
+@font-face {
+  font-family: "PoppinsItalic";
+  src: url("Poppins-Italic.ttf");
+}
+
+@font-face {
+  font-family: "PoppinsLight";
+  src: url("Poppins-Light.ttf");
+}
+
+@font-face {
+  font-family: "PoppinsLightItalic";
+  src: url("Poppins-LightItalic.ttf");
+}
+
+@font-face {
+  font-family: "PoppinsMedium";
+  src: url("Poppins-Medium.ttf");
+}
+
+@font-face {
+  font-family: "PoppinsMediumItalic";
+  src: url("Poppins-MediumItalic.ttf");
+}
+
+@font-face {
+  font-family: "PoppinsRegular";
+  src: url("Poppins-Regular.ttf");
+}
+
+@font-face {
+  font-family: "PoppinsSemiBold";
+  src: url("Poppins-SemiBold.ttf");
+}
+
+@font-face {
+  font-family: "PoppinsSemiBoldItalic";
+  src: url("Poppins-SemiBoldItalic.ttf");
+}
+
+@font-face {
+  font-family: "PoppinsThin";
+  src: url("Poppins-Thin.ttf");
+}
+
+@font-face {
+  font-family: "PoppinsThinItalic";
+  src: url("Poppins-ThinItalic.ttf");
+}

@@ -1,0 +1,29 @@
+<ion-content class="background-image ion-padding" no-scroll>
+    <ion-grid class="ion-no-padding">
+        <ion-row class="to-top">
+            <ion-col>
+                <h2 class="ion-text-center">
+                    <strong>Reset Password</strong>
+                </h2>
+            </ion-col>
+
+            <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+
+                <form class="ion-padding" #myForm="ngForm" (ngSubmit)="signInWithEmail(myForm)">
+                    <ion-item class="first-input">
+                        <ion-input ngModel name="password" type="password" placeholder="password"></ion-input>
+                    </ion-item>
+                    <ion-item class="second-input">
+                        <ion-input ngModel name="confirmation" type="password" placeholder="confirmation"></ion-input>
+                    </ion-item>
+                    <div>
+                        <ion-button size-xs="8" color="primary" type="submit" expand="block">
+                            Change Password
+                        </ion-button>
+                    </div>
+                </form>
+            </ion-col>
+
+        </ion-row>
+    </ion-grid>
+</ion-content>

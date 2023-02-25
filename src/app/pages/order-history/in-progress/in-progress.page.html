@@ -1,0 +1,84 @@
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="updateData($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-card class="welcome-card" mode="md">
+        <ion-card-content>
+            <!-- Skeleton screen -->
+            <div *ngIf="!loaded">
+                <ion-list>
+                    <ion-item *ngFor="let i of [0,1,2,3,4,5,6,7,8]">
+                        <ion-thumbnail slot="start">
+                            <ion-skeleton-text animated></ion-skeleton-text>
+                        </ion-thumbnail>
+                        <ion-label>
+                            <h3>
+                                <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                            </h3>
+                            <p>
+                                <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                            </p>
+                            <p>
+                                <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                            </p>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </div>
+            <ion-list>
+                <ion-item-sliding *ngFor="let ord of orders">
+                    <ion-item class=".ion-justify-content-start" lines="none" (click)="openDetails(ord)">
+                        <ion-avatar>
+                            <img src="{{ord.occupationAvatar}}" class=".ion-align-self-center" />
+                            <ion-badge color="{{ord.statusColor}}">
+                                <font size="1">{{ord.status}}</font>
+                            </ion-badge>
+                        </ion-avatar>
+                        <ion-label>
+                            <ion-text color="dark">
+                                <b><font size="1">{{ord.occupation}}</font></b>
+                            </ion-text>
+                            <ion-text color="dark">
+                                <p>{{ord.description.substr(0,100)}}</p>
+                            </ion-text>
+
+                            <ion-text color="dark">
+                                <b><font size="1">Address</font></b>
+                            </ion-text>
+                            <ion-text color="dark">
+                                <p>{{ord.address}}</p>
+                            </ion-text>
+
+                            <ion-text color="dark">
+                                <b><font size="1">Requested</font></b>
+                            </ion-text>
+                            <ion-text color="dark">
+                                <p>{{ ord.workDate | date: 'medium' }}</p>
+                            </ion-text>
+
+                            <ion-grid>
+                                <ion-row>
+                                    <ion-col size="12" class="ion-text-end">
+                                        <font size="1">Expires in 60 mins</font>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
+                        </ion-label>
+
+                    </ion-item>
+                    <ion-item-options side="end">
+                        <ion-item-option color="success">
+                            <ion-icon slot="top" name="thumbs-up"></ion-icon>
+                            Accept
+                        </ion-item-option>
+                        <ion-item-option color="danger">
+                            <ion-icon slot="top" name="thumbs-down"></ion-icon>
+                            Reject
+                        </ion-item-option>
+                    </ion-item-options>
+                </ion-item-sliding>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

@@ -1,0 +1,72 @@
+<ion-header no-border>
+    <ion-toolbar color="dark">
+        <ion-buttons slot="start">
+            <ion-icon name="arrow-back" size="large" (click)="goBack()"></ion-icon>
+        </ion-buttons>
+        <ion-title>Formulario de Inscripción</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <form #form="ngForm" (ngSubmit)="register(form)">
+        <ion-list lines="full" class="ion-no-margin ion-no-padding">
+            <ion-list-header>
+                <ion-label>Categorías:</ion-label>
+            </ion-list-header>
+            <ion-select multiple ngModel name="categoriesId" (ionChange)="selectingCategories(form)">
+                <ion-select-option *ngFor="let category of categories" value="{{ category.id }}">{{ category.name }}</ion-select-option>
+            </ion-select>
+            <br>
+            <ion-list-header>
+                <ion-label>Sub-Categorías:</ion-label>
+            </ion-list-header>
+            <ion-select multiple ngModel name="occupationsId">
+                <ion-select-option *ngFor="let occupation of occupations" value="{{ occupation.occupationId }}">{{ occupation.occName }}</ion-select-option>
+            </ion-select>
+            <ion-item>
+                <ion-input ngModel name="fullName" type="text" inputmode="latin-name" placeholder="Nombre Completo" maxlength="60"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input ngModel name="telephoneNumber" type="text" inputmode="tel" placeholder="Número de Teléfono" maxlength="50"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input ngModel name="email" type="email" inputmode="email" placeholder="Correo Electrónico" maxlength="150"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input ngModel name="zipCode" type="text" inputmode="tel" placeholder="Zip Code" maxlength="10"></ion-input>
+            </ion-item>
+            <br>
+            <ion-radio-group name="englishLevel" [(ngModel)]="english">
+                <ion-list-header>
+                    <ion-label>Nivel de Experiencia:</ion-label>
+                </ion-list-header>
+                <ion-item>
+                    <ion-label>Media (0 a 5 años)</ion-label>
+                    <ion-radio slot="start" value="N"></ion-radio>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Avanzada (5 a 10 años)</ion-label>
+                    <ion-radio slot="start" value="B"></ion-radio>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Experto (10 años en adelante)</ion-label>
+                    <ion-radio slot="start" value="A"></ion-radio>
+                </ion-item>
+            </ion-radio-group>
+            <br>
+            <ion-item>
+                <ion-input ngModel name="workerPassword" type="password" inputmode="latin-name" placeholder="Contraseña"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input ngModel name="workerPassword2" type="password" inputmode="latin-name" placeholder="Confirmar Contraseña"></ion-input>
+            </ion-item>
+        </ion-list>
+        <input [(ngModel)]="nationality" type="hidden" name="nationalityId" id="nationalityId">
+        <input [(ngModel)]="stat" type="hidden" name="status" id="status">
+        <input [(ngModel)]="imgProfile" type="hidden" name="profileImage" id="profileImage">
+
+        <div class="ion-padding">
+            <ion-button expand="block" type="submit" color="dark">Crear Registro</ion-button>
+        </div>
+    </form>
+</ion-content>

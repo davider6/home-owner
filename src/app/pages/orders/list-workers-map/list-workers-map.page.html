@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/selection"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Workers Avialables</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-no-data *ngIf="!isLoaded" [loaded]="isLoaded"></app-no-data>
+  <div *ngIf="isLoaded">
+    <!-- Tab Selector -->
+    <ion-segment (ionChange)="segmentChanged()" [(ngModel)]="segment" mode="md">
+      <ion-segment-button value="0">
+        <ion-label>Worker List</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="1" *ngIf="showMap">
+        <ion-label>Location Map</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <ion-slides #slides (ionSlideDidChange)="slideChanged()" scrollbar="true">
+      <!-- First Tab -->
+      <ion-slide>
+        <ion-card
+          *ngFor="let item of selectionRequestDTO.selSubCategories; index as pos"
+        >
+          <ion-card-header>
+            <ion-card-subtitle> {{item.occName }} </ion-card-subtitle>
+            <ion-badge color="{{getColorIndex(pos)}}">
+              {{getWorkersBySubCat(item.occupationId).length}}
+            </ion-badge>
+          </ion-card-header>
+          <ion-card-content>
+            <div
+              class="item"
+              *ngFor="let worker of getWorkersBySubCat(item.occupationId); let i = index; last as isLast"
+            >
+              <ion-item lines="{{isLast ? 'none': 'full'}}" class="worker">
+                <ion-checkbox
+                  slot="start"
+                  (ionChange)="selectWorker(worker, i, worker.selected)"
+                  [(ngModel)]="worker.selected"
+                  [checked]="worker.selected"
+                  mode="md"
+                >
+                </ion-checkbox>
+                <ion-avatar slot="start">
+                  <img [src]="validateImageL(worker.profileImageWorker)" />
+                </ion-avatar>
+                <ion-label>
+                  <h2>{{ worker.fullNameWorker.split(" ",1) }}</h2>
+                  <h3>
+                    Rating: {{ worker.rate }}
+                    <ion-icon name="star"></ion-icon>
+                  </h3>
+                </ion-label>
+
+                <ion-note slot="end">
+                  <ion-icon name="cash"></ion-icon>
+                  <p>{{ worker.hourlyRate | currency }}</p>
+                </ion-note>
+              </ion-item>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+      <!-- Second Tab -->
+      <ion-slide>
+        <ion-card>
+          <ion-card-content>
+            <!-- <div id="map_canvas"></div> -->
+            <div class="map">
+              <google-map
+              height="100%"
+              width="100%"
+              [zoom]=10
+              [center]="center"
+              *ngIf="location_found"
+              >
+                <map-marker *ngFor="let marker of markers"
+                  width="100px"
+                  [position]="marker.position"
+                  [options]="marker.options"
+                >
+                </map-marker>
+              </google-map>
+            </div>
+            
+            <ion-list>
+              <ion-item
+                *ngFor="let item of selectionRequestDTO.selSubCategories;index as posi"
+              >
+                <ion-label>
+                  <h3>{{ item.occName }}</h3>
+                </ion-label>
+                <ion-badge slot="end" color="{{getColorIndex(posi)}}">
+                  {{getWorkersBySubCatMap(item.occupationId).length}}
+                </ion-badge>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+
+    <ion-fab vertical="bottom" class="fabButton" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="resumen()">
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+  
+</ion-content>

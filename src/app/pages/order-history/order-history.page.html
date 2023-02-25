@@ -1,0 +1,125 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Orders History</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-no-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="updateData($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-down"
+      pullingText="Pull to refresh"
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <app-no-data *ngIf="!loaded" [loaded]="loaded"></app-no-data>
+
+  <div>
+    <ion-segment (ionChange)="segmentChanged()" [(ngModel)]="segment" mode="md">
+      <ion-segment-button value="0">
+        <ion-label>In Progress</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="1">
+        <ion-label>Closed</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <ion-slides
+      class="tab-order-details"
+      #slides
+      (ionSlideDidChange)="slideChanged()"
+      scrollbar="true"
+    >
+      <ion-slide>
+        <ion-card
+          *ngFor="let ord of orders"
+          class="ion-no-padding"
+          (click)="openDetails(ord)"
+        >
+          <ion-card-header>
+            <ion-card-title>Order # {{ ord.orderId }}</ion-card-title>
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </ion-card-header>
+
+          <ion-card-content>
+            <div class="item">
+              <div class="label">Order Status</div>
+              <div class="status {{ ord.assignedStatus }}">
+                {{ ord.assignedStatus.replace("_", " ") }}
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="label">Category:</div>
+              <div class="value">{{ ord.occupationName }}</div>
+            </div>
+
+            <div class="item">
+              <div class="label">Worker:</div>
+              <div class="value">{{ ord.workerName }}</div>
+            </div>
+
+            <div class="item">
+              <div class="label">Date:</div>
+              <div class="value">
+                {{ ord.assignedProposedDate | date: 'medium' }}
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="label">Description:</div>
+              <div class="value">{{ ord.description.substr(0,150) }}</div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+      <ion-slide>
+        <ion-card
+          *ngFor="let ord of closedOrders"
+          class="ion-no-padding"
+          (click)="openDetails(ord)"
+        >
+          <ion-card-header>
+            <ion-card-title>Order # {{ ord.orderId }}</ion-card-title>
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </ion-card-header>
+
+          <ion-card-content>
+            <div class="item">
+              <div class="label">Order Status</div>
+              <div class="status {{ ord.assignedStatus }}">
+                {{ ord.assignedStatus.replace("_", " ") }}
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="label">Category:</div>
+              <div class="value">{{ ord.occupationName }}</div>
+            </div>
+
+            <div class="item">
+              <div class="label">Worker:</div>
+              <div class="value">{{ ord.workerName }}</div>
+            </div>
+
+            <div class="item">
+              <div class="label">Date:</div>
+              <div class="value">
+                {{ ord.assignedProposedDate | date: 'medium' }}
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="label">Description:</div>
+              <div class="value">{{ ord.description.substr(0,150) }}</div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+  </div>
+</ion-content>

@@ -1,0 +1,14 @@
+#map_canvas {
+    position: relative;
+  }
+  #centerMarkerImage {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom:0;
+    margin: auto;
+    width: 32px; // image width
+    height: 24px; // image height
+    z-index: 1;
+  }

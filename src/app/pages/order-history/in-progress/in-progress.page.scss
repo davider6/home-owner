@@ -1,0 +1,34 @@
+ion-avatar {
+  width: 60px;
+  height: 60px;
+  margin-right: 1rem;
+  img {
+    margin-top: -1.5em;
+    margin-bottom: 0.5em;
+  }
+}
+
+p {
+  white-space: normal !important;
+  text-align: justify;
+  font-size: 10px;
+  line-height: 1.4;
+}
+ion-item {
+  --border-radius: 1em;
+  --border-width: 0.1em !important;
+  margin-bottom: 0.3em;
+}
+
+.icon {
+  display: inline-block;
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+.text {
+  font-size: 12px;
+  display: inline-block;
+  vertical-align: middle;
+  color: darkblue;
+}

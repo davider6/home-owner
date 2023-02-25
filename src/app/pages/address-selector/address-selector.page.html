@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" *ngIf="param == 'exists'">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title
+      >{{ ((param == 'new')?'Where are you?':'Select order location')
+      }}</ion-title
+    >
+    <ion-buttons slot="end" *ngIf="param == 'new'">
+      <ion-button (click)="closeModal(false)">
+        <ion-icon slot="end" name="close"></ion-icon>
+        Skip
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-text color="secondary">
+          <p>
+            Type a hint into the search field or drag the map to get a suggested
+            address, then edit it to complete.
+          </p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="input" size="12">
+        <ion-label position="floating"></ion-label>
+        <ion-input [(ngModel)]="address" placeholder="Address"></ion-input>
+      </ion-col>
+      <ion-col class="input" size="9">
+        <ion-input
+          [(ngModel)]="zipCode"
+          type="tel"
+          placeholder="Zip Code"
+        ></ion-input>
+      </ion-col>
+      <ion-col class="input">
+        <ion-button color="primary" (click)="closeModal(true)">
+          <ion-icon slot="end" name="checkmark"></ion-icon>
+          OK
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="my-map-container">
+    <ion-searchbar
+      [(ngModel)]="search"
+      (ionChange)="searchChanged()"
+      placeholder="Type a hint"
+    ></ion-searchbar>
+    <ion-list class="ion-margin-horizontal" [hidden]="!search.length">
+      <ion-item
+        *ngFor="let result of searchResults"
+        (click)="calcRoute(result)"
+      >
+        {{ result.description }}
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ion-row
+    class="ion-align-items-center ion-justify-content-center h-100"
+    *ngIf="!location_found"
+  >
+    <ion-spinner></ion-spinner>
+  </ion-row>
+
+  <google-map
+    height="100%"
+    width="100%"
+    [zoom]="zoom"
+    [center]="center"
+    (mapDrag)="updatePosition()"
+    *ngIf="location_found"
+    #map
+  >
+    <map-marker
+      width="100px"
+      [position]="marker.position"
+      [options]="marker.options"
+    >
+    </map-marker>
+  </google-map>
+</ion-content>
+
+<!-- <div id="map_canvas">
+  <img
+    src="../../../assets/location/casa.png"
+    style="position: absolute; left: 50%; bottom: 50%"
+  />
+  <ion-searchbar
+    [(ngModel)]="search"
+    (ionChange)="searchChanged()"
+    placeholder="Type a hint"
+  ></ion-searchbar>
+  <ion-list class="ion-margin-horizontal" [hidden]="!search.length">
+    <ion-item *ngFor="let result of searchResults" (click)="calcRoute(result)">
+      {{ result.description }}
+    </ion-item>
+  </ion-list>
+</div> -->

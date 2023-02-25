@@ -1,0 +1,198 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/"></ion-back-button>
+      </ion-buttons>
+      <!-- <ion-button>
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button> -->
+    </ion-buttons>
+    <ion-title>Work Order Detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4" class="ion-align-self-center">
+        <ion-avatar>
+          <img
+            src="{{orderDetails.occupationAvatar}}"
+            class=".ion-align-self-center"
+          />
+          <ion-badge color="{{orderDetails.statusColor}}">
+            <font size="1">{{orderDetails.status}}</font>
+          </ion-badge>
+        </ion-avatar>
+      </ion-col>
+      <ion-col size="6" class="ion-align-self-start">
+        <ion-label>
+          <ion-text color="dark">
+            <h3><b>{{orderDetails.occupation}}</b></h3>
+          </ion-text>
+          <ion-text color="dark">
+            <p>{{orderDetails.address}}</p>
+          </ion-text>
+          <ion-text color="dark">
+            <p>Start: {{ orderDetails.workDate | date:'medium' }}</p>
+          </ion-text>
+          <ion-text color="dark">
+            <p>Finish:</p>
+          </ion-text>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-toolbar style="margin-top: 15px;">
+    <ion-segment (ionChange)="segmentChanged()" [(ngModel)]="segment">
+      <ion-segment-button value="0">
+        <ion-label>Requested</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="1">
+        <ion-label>Result</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <ion-slides
+      class="tab-order-details"
+      #slides
+      (ionSlideDidChange)="slideChanged()"
+      scrollbar="true"
+    >
+      <ion-slide>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Work Order Description</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <p>{{orderDetails.description}}</p>
+            <br />
+            <br />
+            <br />
+            <app-image-slider
+              [upload]="false"
+              [orderId]="orderDetails.orderId"
+              [closed]="false"
+              [temp]="isTemp"
+              [loadTemp]="true"
+            ></app-image-slider>
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+      <ion-slide>
+        <ion-card>
+          <ion-card-content>
+            <div *ngIf="orderDetails.status === 'In Progress' && !closing">
+              <ion-text>
+                To mark this work order as finished, please tap on the blue flag
+                button bellow...
+              </ion-text>
+            </div>
+            <div *ngIf="closing">
+              <form #form="ngForm" (ngSubmit)="closeOrder(form)">
+                <ion-list lines="full" class="ion-no-margin ion-no-padding">
+                  <ion-item>
+                    <ion-label>
+                      <b>Rate worker attention</b>
+                    </ion-label>
+                  </ion-item>
+                  <br />
+                  <app-rating
+                    [rating]="0"
+                    (ratingChange)="onChangeRating($event)"
+                    [editable]="true"
+                  ></app-rating>
+
+                  <ion-item>
+                    <ion-label position="floating">
+                      Describe your experience</ion-label
+                    >
+                    <ion-textarea
+                      ngModel
+                      name="description"
+                      type="text"
+                      inputmode="latin-name"
+                      rows="4"
+                    ></ion-textarea>
+                  </ion-item>
+
+                  <app-image-slider
+                    #test
+                    [upload]="true"
+                    [closed]="true"
+                    [temp]="false"
+                    [loadTemp]="true"
+                  ></app-image-slider>
+                </ion-list>
+                <div class="ion-padding">
+                  <ion-button
+                    expand="block"
+                    type="submit"
+                    color="dark"
+                    [routerDirection]="'root'"
+                  >
+                    <ion-icon slot="start" name="save"></ion-icon>Mark Work
+                    Order as Finished
+                  </ion-button>
+                </div>
+              </form>
+            </div>
+            <div
+              *ngIf="!closing && (orderDetails.status === 'Finished' || orderDetails.status === 'Rejected')"
+            >
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="4" class="ion-align-self-center">
+                    <ion-avatar>
+                      <img
+                        src="{{orderDetails.occupationAvatar}}"
+                        class=".ion-align-self-center"
+                      />
+                    </ion-avatar>
+                  </ion-col>
+                  <ion-col size="6" class="ion-align-self-start">
+                    <ion-label>
+                      <ion-text color="dark">
+                        <h3><b>{{user}}</b></h3>
+                      </ion-text>
+                    </ion-label>
+                    <app-rating [rating]="5" [editable]="false"></app-rating>
+                    <ion-label>
+                      <ion-text color="dark">
+                        <p>{{orderDetails.address}}</p>
+                      </ion-text>
+                    </ion-label>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <app-image-slider
+                      [upload]="false"
+                      [closed]="true"
+                      [orderId]="orderDetails.orderId"
+                      [temp]="false"
+                      [loadTemp]="true"
+                    ></app-image-slider>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+  </ion-toolbar>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <div *ngIf="orderDetails.status == 'In Progress'">
+      <ion-fab-button (click)="setCloseOrder()">
+        <ion-icon name="flag"></ion-icon>
+      </ion-fab-button>
+    </div>
+    <div *ngIf="orderDetails.status != 'In Progress'">
+      <ion-fab-button (click)="createNewOrder()">
+        <ion-icon name="construct"></ion-icon>
+      </ion-fab-button>
+    </div>
+  </ion-fab>
+</ion-content>

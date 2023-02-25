@@ -1,0 +1,97 @@
+<ion-header no-border>
+    <ion-toolbar color="dark">
+        <!--ion-buttons slot="start">
+          <ion-menu-button autoHide="false"></ion-menu-button>
+      </ion-buttons-->
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            X-Jobs Maps
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-no-padding">
+    <!-- Default Segment -->
+    <ion-segment (ionChange)="segmentChanged()" [(ngModel)]="segment" style="padding-left: 15px; padding-right: 15px; padding-top: 5px;">
+        <ion-segment-button value="0">
+            <ion-label>Map</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="1">
+            <ion-label>List</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+
+    <ion-slides #slides (ionSlideDidChange)="slideChanged()" scrollbar="true">
+        <ion-slide>
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        <div id="map_canvas"></div>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="consulta">
+                    <ion-col>
+                        <ion-list>
+                            <ion-item *ngFor="let item of occupationsList">
+                                <ion-label>
+                                    <h3>{{ occupationsMap.get(item).nameOccupation }}</h3>
+                                </ion-label>
+                                <ion-badge slot="end">{{workerOccupationMap.get(item).length}}</ion-badge>
+                            </ion-item>
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-slide>
+        <ion-slide>
+            <ion-grid>
+                <ion-row *ngIf="consulta">
+                    <ion-col>
+                        <ion-card *ngFor="let item of occupationsList">
+                            <img src="{{ occupationsMap.get(item).categoryImageOccupation }} " />
+                            <ion-card-header class="ion-no-padding">
+                                <ion-item>
+                                    <ion-avatar slot="end">
+                                        <img src="{{ occupationsMap.get(item).categoryImageOccupation }} ">
+                                    </ion-avatar>
+                                    <ion-label>
+                                        <h2><b>{{ occupationsMap.get(item).nameOccupation }}</b></h2>
+                                        <p>Cantidad de Trabajadores: {{workerOccupationMap.get(item).length}} </p>
+                                    </ion-label>
+                                </ion-item>
+                            </ion-card-header>
+                            <ion-card-content>
+                                <ion-list style="padding-left: 5px; padding-right: 5px;">
+                                    <ion-item *ngFor="let worker of workerOccupationMap.get(item) ">
+                                        <ion-avatar slot="start">
+                                            <img src="{{ worker.profileImageWorker }}">
+                                        </ion-avatar>
+                                        <ion-label>
+                                            <h2 class="ion-text-wrap">Hourly Rate: {{ worker.hourlyRate | currency }}</h2>
+                                            <!--h3 class="ion-text-wrap">{{ worker.descriptionOccupation }}</h3-->
+                                            <p class="ion-text-wrap">{{ worker.description }}</p>
+                                        </ion-label>
+                                        <div slot="end" class="ion-text-center">
+                                            <div>
+                                                <span style="color:goldenrod;">
+                                                          <ion-icon name="star" size="large"></ion-icon>
+                                                    </span>
+                                                <br>
+                                                <label size="medium">{{ worker.rate }}</label>
+                                            </div>
+                                        </div>
+                                    </ion-item>
+                                </ion-list>
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-slide>
+    </ion-slides>
+
+
+
+</ion-content>

@@ -1,0 +1,145 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import "~@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+@import "~@swimlane/ngx-datatable/index.css";
+@import "~@swimlane/ngx-datatable/themes/dark.css";
+@import "~@swimlane/ngx-datatable/themes/bootstrap.css";
+@import "~@swimlane/ngx-datatable/themes/material.css";
+@import "~@swimlane/ngx-datatable/assets/icons.css";
+
+@import "./assets/fonts/poppins/poppins.css";
+
+body {
+  background: var(--page-background) !important;
+}
+// Change background color of page
+ion-content {
+  --background: var(--page-background);
+}
+
+// Default input and button design
+:root {
+  ion-input {
+    font-size: 14px;
+    --padding-start: 15px;
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 6px;
+    &.has-focus {
+      border: 1px solid var(--ion-color-primary);
+      box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  ion-card {
+    --background: #ffffff;
+  }
+}
+ion-col.input {
+  margin-bottom: 5px;
+}
+
+ion-button.ios {
+  font-size: 15px;
+  margin: 0px;
+  --border-radius: 6px;
+  --box-shadow: none;
+}
+
+// refresher
+ion-refresher {
+  ion-refresher-content {
+    background-color: var(--page-background);
+  }
+}
+
+.section-active {
+  --ion-item-background: #043261;
+  --ion-item-color: #ffffff;
+  ion-icon {
+    color: #ffffff;
+  }
+}
+
+.section {
+  --ion-item-background: rgb(224, 224, 224);
+  --ion-item-color: #000;
+}
+
+.action-sheets-groups-page {
+  .FacebookIcon {
+    ion-icon {
+      color: #3b5998 !important;
+    }
+  }
+  .GoogleIcon {
+    ion-icon {
+      color: #db4a39 !important;
+    }
+  }
+}
+
+// popover
+.custom-popover {
+  --width: calc(100% - 60px);
+  --height: 190px;
+  --background: var(--page-background);
+}
+.ios {
+  .custom-popover {
+    ion-backdrop {
+      opacity: 0.4 !important;
+    }
+  }
+}
+
+// segments
+ion-segment {
+  background-color: #ffffff;
+}
+ion-segment-button {
+  border: 0px;
+  border-radius: 0px;
+  font-size: 16px;
+  &.segment-button-checked {
+    font-weight: 600;
+  }
+}
+ion-segment-button.ios {
+  padding: 15px;
+  border-bottom: 2px solid #b9b7b7;
+  &.segment-button-checked {
+    border-color: var(--ion-color-primary);
+  }
+}
+
+/** Height **/
+.h-100 {
+  height: 100%;
+}

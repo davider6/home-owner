@@ -1,0 +1,59 @@
+<ion-header>
+    <ion-toolbar color="dark">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Our Professionals</ion-title>
+        <ion-buttons slot="end">
+            <ion-button routerLink="/registry">
+                <ion-icon name="person-add" size="large"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-no-padding">
+    <ion-list>
+        <ion-list>
+            <ion-item *ngFor="let worker of workers" class="ion-text-wrap" (click)="goProfile(occupationId, worker.workerId)">
+                <ion-avatar slot="start">
+                    <img src="{{ worker.profileImageWorker }}">
+                </ion-avatar>
+                <ion-label>
+                    <h2><b>{{ worker.fullNameWorker.split(" ",1) }}</b></h2>
+                    <h3 class="ion-text-wrap"><span style="color: grey">{{ worker.description }}</span></h3>
+                    <h3>
+                        <span style="color: grey">
+                            <ion-grid>
+                                <ion-row class="ion-text-left">
+                                    <ion-col>
+                                        <ion-icon name="compass" size="medium"></ion-icon>
+                                        {{ worker.zipCodeWorker }} 
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-icon name="star" size="medium"></ion-icon>
+                                        {{ worker.rate ? worker.rate : 0 }}
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-icon name="car" size="medium"></ion-icon>
+                                        {{ worker.hasVehicleWorker ? 'Yes' : 'No' }} 
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>                            
+                        </span>
+                    </h3>
+                </ion-label>
+                <div slot="end" class="ion-text-center">
+                    <div>
+                        <span style="color:goldenrod;">
+                              <ion-icon name="cash" size="large"></ion-icon>
+                        </span>
+                        <br>
+                        <label size="medium">{{ worker.hourlyRate | currency }}</label>
+                    </div>
+                </div>
+
+            </ion-item>
+        </ion-list>
+    </ion-list>
+</ion-content>

@@ -1,0 +1,36 @@
+@media (min-width: 0px) {
+    .images {
+        column-count: 2;
+    }
+}
+
+@media (min-width: 620px) {
+    .images {
+        column-count: 3;
+    }
+}
+
+@media (min-width: 820px) {
+    .images {
+        column-count: 4;
+    }
+}
+
+.one-image {
+    margin-top: 0px;
+}
+
+.centered {
+    position: relative;
+    bottom: 23px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.8;
+    background: #043261;
+    color: white;
+    font-weight: bold;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 3px;
+    text-align: center;
+}

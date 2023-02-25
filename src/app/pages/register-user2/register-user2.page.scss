@@ -1,0 +1,14 @@
+@import "../../../scss/login-signup-form.scss";
+.input {
+  .select-address {
+    position: absolute;
+    top: 6px;
+    z-index: 5;
+    right: 6px;
+    font-size: 23px;
+    background: #ffffff;
+    padding: 6px;
+    border-radius: 6px;
+    color: var(--ion-color-primary);
+  }
+}

@@ -1,0 +1,42 @@
+<ion-header no-border>
+    <ion-toolbar color="dark">
+        <!--ion-buttons slot="start">
+            <ion-menu-button autoHide="false"></ion-menu-button>
+        </ion-buttons-->
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            X-Jobs Categories
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button routerLink="/search">
+                <ion-icon name="search" size="large"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+
+    <!--ion-button expand="block" style="margin-top:-5px;padding-bottom:5px;" color="dark" (click)="goRegistry()">Deseo ofrecer mis servicios</ion-button-->
+
+    <p style="margin-left:15px;font-weight: bold; color:#043261;" class="ion-text-center">
+        Find the Best Professionals in the Industry – Select desired category below
+    </p>
+
+    <ion-refresher (ionRefresh)="doRefresh($event)" slot="fixed">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Deslice para actualizar" refreshingSpinner="circles" refreshingText="Cargando..."></ion-refresher-content>
+    </ion-refresher>
+
+    <!-- More Pinterest floating gallery style -->
+    <div class="images">
+
+        <div class="one-image" *ngFor="let cat of categoriesList" (click)="goList(cat.id)">
+            <img style="border-radius: 10px 10px 0px 0px;" src="{{ cat.categoryImage }}">
+            <div class="centered">{{ cat.name }}</div>
+        </div>
+    </div>
+
+</ion-content>

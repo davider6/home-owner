@@ -1,0 +1,17 @@
+ion-slides {
+  height: 200px;
+}
+.upload-img {
+  ion-icon {
+    font-size: 20px;
+    color: var(--ion-color-primary);
+    margin-right: 10px;
+    float: left;
+  }
+  p {
+    margin-top: 15px;
+    margin-bottom: 0px;
+    color: #1e1f22;
+    text-decoration: underline;
+  }
+}
